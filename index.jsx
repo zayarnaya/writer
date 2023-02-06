@@ -2,28 +2,38 @@
 
 const Page = () => {
   const imagesLetters = {
-    Fcap: "public/files/letters/F.png",
+    F: "public/files/letters/F.png",
     f: "public/files/letters/f.png",
-    Bcap: "public/files/letters/B.png",
+    B: "public/files/letters/B.png",
     b: "public/files/letters/b.png",
-    Lcap: "public/files/letters/L.png",
+    L: "public/files/letters/L.png",
     l: "public/files/letters/l.png",
-    Vcap: "public/files/letters/V.png",
+    V: "public/files/letters/V.png",
     v: "public/files/letters/v.png",
+    '{': "public/files/letters/{.png",
+    '[': "public/files/letters/[.png",
+    1: "public/files/letters/1.png",
+    W: "public/files/letters/W.png",
+    w: "public/files/letters/w.png",
+    X: "public/files/letters/X.png",
+    x: "public/files/letters/x.png",
+    I: "public/files/letters/x.png",
     QMark: "public/files/letters/q-mark.png",
     ExMark: "public/files/letters/ex-mark.png",
   }
 
   const imagesKeys = {};
+  const lWidth = 50;
+  const lHeight = 75*(lWidth/50);
 
-  const preloadImages = (images, target) => {
+  const preloadImages = async (images, target) => {
     const sources = Object.values(images);
     const keys = Object.keys(images);
-    return Promise.allSettled(
+    return await Promise.allSettled(
       sources.map(
         (source, index) =>
           new Promise((resolve, reject) => {
-            const img = new Image(100, 120);
+            const img = new Image(lWidth, lHeight);
             img.src = source;
             Object.assign(target, { [keys[index]]: img });
             img.onload = () => resolve(img);
@@ -39,65 +49,117 @@ const Page = () => {
   const [isListenerSet, setListenerSet] = React.useState(false);
 
   const coords = {
-    x: 10,
+    x: 0,
     y: 0,
   };
 
-  const canvasRef = React.useRef(null);
+
+  // const canvasRef = React.useRef(null);
   const ctx = document.querySelector('canvas').getContext('2d');
   
   const makeLetters = (e) => {
     console.log('letter presssed', e.key);
+    // TODO переделать под key
+    if (coords.x > 1200) {
+      coords.x = 0;
+      coords.y += lHeight;
+    }
+
+    if (coords.x < 0 && coords.y < 0) {
+      coords.x = 0;
+      coords.y = 0;
+    }
+
+    if (e.code == 'Space') {
+      e.preventDefault();
+    //  ctx.drawImage(imagesKeys.space, coords.x, coords.y, lWidth, lHeight);
+      coords.x += lWidth;
+      return;
+    }
+
     switch(e.key) {
-      case 'F': {
-        console.log(imagesKeys.Fcap, coords);
-        ctx.drawImage(imagesKeys.Fcap, coords.x, coords.y, 100, 120);
-        coords.x += 100;
+      case 'Shift': {
         break;
       }
-      case 'f':{
-        console.log(imagesKeys);
-        ctx.drawImage(imagesKeys.f, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
-        break;
-      }
-      case 'B':{
-        ctx.drawImage(imagesKeys.Bcap, coords.x, coords.y, 100, 120);
-        coords.x += 100;
-        break;}
-      case 'b':{
-        ctx.drawImage(imagesKeys.b, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
-        break;}
-      case 'L':{
-        ctx.drawImage(imagesKeys.Lcap, coords.x, coords.y, 100, 120);
-        coords.x += 100;
-        break;}
-      case 'l':{
-        ctx.drawImage(imagesKeys.l, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
-        break;}
-      case 'V':{
-        ctx.drawImage(imagesKeys.Vcap, coords.x, coords.y, 100, 120);
-        coords.x += 100;
-        break;}
-      case 'v':{
-        ctx.drawImage(imagesKeys.v, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
-        break;}
-      case 'Backspace': {
-        ctx.clearRect(coords.x - 100, 0, 100, 700);
-        coords.x -= 100;
-        break;
-      }
+
       case '!': {
-        ctx.drawImage(imagesKeys.ExMark, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
+        ctx.drawImage(imagesKeys.ExMark, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
         break;
       }
       case '?': {
-        ctx.drawImage(imagesKeys.QMark, coords.x, coords.y + 60, 100, 60);
-        coords.x += 100;
+        console.log(imagesKeys.QMark);
+        ctx.drawImage(imagesKeys.QMark, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case '.': {
+        ctx.drawImage(imagesKeys.Dot, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case ',': {
+        ctx.drawImage(imagesKeys.Comma, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case ':': {
+        ctx.drawImage(imagesKeys.Double, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case ';': {
+        ctx.drawImage(imagesKeys.DotComma, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case '=': {
+        ctx.drawImage(imagesKeys.Eq, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case '-': {
+        ctx.drawImage(imagesKeys.minus, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }      
+      case '+': {
+        ctx.drawImage(imagesKeys.plus, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case '_': {
+        ctx.drawImage(imagesKeys.dash, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+      case '\"': {
+        ctx.drawImage(imagesKeys.quote, coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
+        break;
+      }
+
+      case "Enter": {
+        coords.y += lHeight;
+        coords.x = 0;
+        break;
+      }
+      case 'Backspace': {
+        if (coords.y > 0 && coords.x == 0) {
+          coords.y -= lHeight;
+          coords.x = 1200;  
+        } 
+        ctx.clearRect(coords.x - lWidth, coords.y, lWidth, lHeight);
+        coords.x -= lWidth;
+        break;
+      }
+
+      default: {
+        console.log(imagesKeys);
+        console.log(imagesKeys[e.key]);
+        // ctx.drawImage(imagesKeys[e.key], coords.x, coords.y, lWidth, lHeight);
+        ctx.drawImage(imagesKeys[e.key], coords.x, coords.y, lWidth, lHeight);
+        coords.x += lWidth;
         break;
       }
                                                         

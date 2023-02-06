@@ -3,4 +3,16 @@
     height: 100vh;
     overflow-y: auto;
     padding: 20px;
+    background-color: #eddedb;
+}
+
+@media print {
+    .writer-main {
+        width: 210mm;
+    }
+
+    .writer-canvas {
+        width: 210mm;
+        margin-left: 0;
+    }
 }
