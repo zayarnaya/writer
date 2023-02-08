@@ -58,7 +58,7 @@ const Page = () => {
   const ctx = document.querySelector('canvas').getContext('2d');
   
   const makeLetters = (e) => {
-    console.log('letter presssed', e.key);
+    console.log('letter presssed', e.key, 'code', e.code);
     // TODO переделать под key
     if (coords.x > 1200) {
       coords.x = 0;
@@ -72,10 +72,11 @@ const Page = () => {
 
     if (e.code == 'Space') {
       e.preventDefault();
-    //  ctx.drawImage(imagesKeys.space, coords.x, coords.y, lWidth, lHeight);
+     ctx.drawImage(imagesKeys.space, coords.x, coords.y, lWidth, lHeight);
       coords.x += lWidth;
       return;
     }
+
 
     switch(e.key) {
       case 'Shift': {
@@ -93,51 +94,61 @@ const Page = () => {
         coords.x += lWidth;
         break;
       }
-      case '.': {
-        ctx.drawImage(imagesKeys.Dot, coords.x, coords.y, lWidth, lHeight);
+      case ':': { // Ж
+        ctx.drawImage(imagesKeys.JJ, coords.x, coords.y, lWidth, lHeight);
         coords.x += lWidth;
         break;
       }
-      case ',': {
-        ctx.drawImage(imagesKeys.Comma, coords.x, coords.y, lWidth, lHeight);
+      case ';': { // ж
+        ctx.drawImage(imagesKeys.jj, coords.x, coords.y, lWidth, lHeight);
         coords.x += lWidth;
         break;
       }
-      case ':': {
-        ctx.drawImage(imagesKeys.Double, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
-      case ';': {
-        ctx.drawImage(imagesKeys.DotComma, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
-      case '=': {
-        ctx.drawImage(imagesKeys.Eq, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
-      case '-': {
-        ctx.drawImage(imagesKeys.minus, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }      
-      case '+': {
-        ctx.drawImage(imagesKeys.plus, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
-      case '_': {
-        ctx.drawImage(imagesKeys.dash, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
-      case '\"': {
-        ctx.drawImage(imagesKeys.quote, coords.x, coords.y, lWidth, lHeight);
-        coords.x += lWidth;
-        break;
-      }
+      // case '.': {
+      //   ctx.drawImage(imagesKeys.dot, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case ',': {
+      //   ctx.drawImage(imagesKeys.comma, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case ':': {
+      //   ctx.drawImage(imagesKeys.double, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case ';': {
+      //   ctx.drawImage(imagesKeys.dotcomma, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case '=': {
+      //   ctx.drawImage(imagesKeys.eq, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case '-': {
+      //   ctx.drawImage(imagesKeys.minus, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }      
+      // case '+': {
+      //   ctx.drawImage(imagesKeys.plus, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case '_': {
+      //   ctx.drawImage(imagesKeys.dash, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
+      // case '\"': {
+      //   ctx.drawImage(imagesKeys.quote, coords.x, coords.y, lWidth, lHeight);
+      //   coords.x += lWidth;
+      //   break;
+      // }
 
       case "Enter": {
         coords.y += lHeight;
